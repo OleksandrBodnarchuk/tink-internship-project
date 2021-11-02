@@ -4,7 +4,7 @@ import pl.alex.utils.FileUtils;
 
 public class App {
 
-    // TODO: 1. Liczy ile słów znajduje się w pliku txt;
+    // TODO: 1. Liczy ile słów znajduje się w pliku txt; --> OK
     //          - Get the file (if not available -> throw an exception)
     //          - Read the file (if empty -> throw an exception)
     //  2. Wyświetla najdłuższe i najkrótsze słowa;

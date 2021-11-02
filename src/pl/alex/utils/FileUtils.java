@@ -27,6 +27,17 @@ public class FileUtils {
         readFile();
         getTotalWordCount();
         populateWordsMap();
+        printLongestAndShortest();
+    }
+
+    private void printLongestAndShortest() {
+        words.sort(Comparator.comparing(String::length));
+        int shortest = words.get(0).length();
+        int longest = words.get(words.size()-1).length();
+        printLine("Longest words:");
+        wordsMap.keySet().stream().filter(w->w.length()==longest).sorted().forEach(w-> System.out.print(w+" "));
+        printLine("Shortest words:");
+        wordsMap.keySet().stream().filter(w->w.length()==shortest).sorted().forEach(w-> System.out.print(w+" "));
     }
 
     private void populateWordsMap() {
