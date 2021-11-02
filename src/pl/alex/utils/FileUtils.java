@@ -3,10 +3,9 @@ package pl.alex.utils;
 
 import pl.alex.exceptions.FileIsEmptyException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 // TODO: Program powinien wyświetlić (każdy punkt w nowej linii):
 //  ● ile słów znalazło się w pliku txt, -> OK
@@ -30,6 +29,13 @@ public class FileUtils {
         populateWordsMap();
         printLongestAndShortest();
         averageWordLength();
+    }
+
+    private Map<String, Integer> getSortedMap() {
+        return wordsMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
     private void averageWordLength() {
