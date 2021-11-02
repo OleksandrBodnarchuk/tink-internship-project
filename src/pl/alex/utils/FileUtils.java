@@ -1,21 +1,50 @@
 package pl.alex.utils;
 
 
+import pl.alex.exceptions.FileIsEmptyException;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
+// TODO: Program powinien wyświetlić (każdy punkt w nowej linii):
+//  ● ile słów znalazło się w pliku txt, -> OK
+//  ● najdłuższe słowo lub słowa,
+//  ● najkrótsze słowo lub słowa,
+//  ● średnia długość wszystkich słów,
+//  ● nazwę pliku w którym znajduje się wyliczenie słów z liczbą wystąpień w pliku wejściowym,
+//  ● checksum (skrót) - pliku wyjściowego.
 
 public class FileUtils {
     private final Scanner SCANNER = new Scanner(System.in);
     private String ORIGINAL_FILE_PATH;
     private final List<String> words = new ArrayList<>();
+    private final Map<String, Integer> wordsMap = new HashMap<>();
+
 
     public void start() {
         readFile();
+        getTotalWordCount();
+        populateWordsMap();
+    }
+
+    private void populateWordsMap() {
+        if (words.size() > 0) {
+            for (String w : words) {
+                wordsMap.put(w, Collections.frequency(words, w));
+            }
+        } else {
+            try {
+                throw new FileIsEmptyException("File is empty. Please use different path name.");
+            } catch (FileIsEmptyException e) {
+                printLine(e.getMessage());
+                start();
+            }
+        }
+    }
+    private void getTotalWordCount() {
+        printLine("Total word count is: " + words.size());
     }
 
     private void readFile() {
