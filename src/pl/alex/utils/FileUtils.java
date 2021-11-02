@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 //  ● najdłuższe słowo lub słowa, -> OK
 //  ● najkrótsze słowo lub słowa, -> OK
 //  ● średnia długość wszystkich słów, -> OK
-//  ● nazwę pliku w którym znajduje się wyliczenie słów z liczbą wystąpień w pliku wejściowym,
+//  ● nazwę pliku w którym znajduje się wyliczenie słów z liczbą wystąpień w pliku wejściowym, -> OK
 //  ● checksum (skrót) - pliku wyjściowego. -> OK
 
 public class FileUtils {
@@ -29,6 +29,29 @@ public class FileUtils {
         populateWordsMap();
         printLongestAndShortest();
         averageWordLength();
+        saveWordsToFile();
+        SCANNER.close();
+    }
+
+    private void saveWordsToFile() {
+        File oldFile = new File(ORIGINAL_FILE_PATH);
+        File newFile = new File(oldFile.getParent() + "\\" + NEW_FILE_NAME);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(newFile))) {
+            writeMapIntoTheFile(writer);
+            printLine("New file with calculations: " + newFile.getName());
+        } catch (IOException e) {
+            printLine("Error while writing into the new file.");
+            start();
+        }
+    }
+
+    private void writeMapIntoTheFile(BufferedWriter writer) throws IOException {
+        for (Map.Entry<String, Integer> entry : getSortedMap().entrySet()) {
+            String k = entry.getKey();
+            Integer v = entry.getValue();
+            writer.write(String.format("%s%" + (20 - k.length()) + "d", k, v));
+            writer.newLine();
+        }
     }
 
     private Map<String, Integer> getSortedMap() {
@@ -49,11 +72,11 @@ public class FileUtils {
     private void printLongestAndShortest() {
         words.sort(Comparator.comparing(String::length));
         int shortest = words.get(0).length();
-        int longest = words.get(words.size()-1).length();
+        int longest = words.get(words.size() - 1).length();
         printLine("Longest words:");
-        wordsMap.keySet().stream().filter(w->w.length()==longest).sorted().forEach(w-> System.out.print(w+" "));
+        wordsMap.keySet().stream().filter(w -> w.length() == longest).sorted().forEach(w -> System.out.print(w + " "));
         printLine("Shortest words:");
-        wordsMap.keySet().stream().filter(w->w.length()==shortest).sorted().forEach(w-> System.out.print(w+" "));
+        wordsMap.keySet().stream().filter(w -> w.length() == shortest).sorted().forEach(w -> System.out.print(w + " "));
     }
 
     private void populateWordsMap() {
@@ -70,6 +93,7 @@ public class FileUtils {
             }
         }
     }
+
     private void getTotalWordCount() {
         printLine("Total word count is: " + words.size());
     }
@@ -80,7 +104,7 @@ public class FileUtils {
             while ((line = reader.readLine()) != null) {
                 if (!line.isEmpty()) {
                     String[] s = line.split(" ");
-                   populateWordsArray(s);
+                    populateWordsArray(s);
                 }
             }
         } catch (IOException e) {
