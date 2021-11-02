@@ -10,8 +10,8 @@ import java.util.*;
 
 // TODO: Program powinien wyświetlić (każdy punkt w nowej linii):
 //  ● ile słów znalazło się w pliku txt, -> OK
-//  ● najdłuższe słowo lub słowa,
-//  ● najkrótsze słowo lub słowa,
+//  ● najdłuższe słowo lub słowa, -> OK
+//  ● najkrótsze słowo lub słowa, -> OK
 //  ● średnia długość wszystkich słów,
 //  ● nazwę pliku w którym znajduje się wyliczenie słów z liczbą wystąpień w pliku wejściowym,
 //  ● checksum (skrót) - pliku wyjściowego.
