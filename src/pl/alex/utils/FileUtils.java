@@ -12,13 +12,14 @@ import java.util.*;
 //  ● ile słów znalazło się w pliku txt, -> OK
 //  ● najdłuższe słowo lub słowa, -> OK
 //  ● najkrótsze słowo lub słowa, -> OK
-//  ● średnia długość wszystkich słów,
+//  ● średnia długość wszystkich słów, -> OK
 //  ● nazwę pliku w którym znajduje się wyliczenie słów z liczbą wystąpień w pliku wejściowym,
-//  ● checksum (skrót) - pliku wyjściowego.
+//  ● checksum (skrót) - pliku wyjściowego. -> OK
 
 public class FileUtils {
     private final Scanner SCANNER = new Scanner(System.in);
     private String ORIGINAL_FILE_PATH;
+    private final String NEW_FILE_NAME = "checksum.txt";
     private final List<String> words = new ArrayList<>();
     private final Map<String, Integer> wordsMap = new HashMap<>();
 
@@ -28,6 +29,15 @@ public class FileUtils {
         getTotalWordCount();
         populateWordsMap();
         printLongestAndShortest();
+        averageWordLength();
+    }
+
+    private void averageWordLength() {
+        // used https://docs.oracle.com/javase/tutorial/collections/streams/reduction.html
+        double average = words.stream()
+                .mapToInt(String::length)
+                .average().getAsDouble();
+        printLine("Average length of the words: " + String.format("%.2f", average));
     }
 
     private void printLongestAndShortest() {
