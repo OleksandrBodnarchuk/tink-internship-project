@@ -1,3 +1,7 @@
+To start: 
+1. javac -sourcepath ./src -d bin -encoding ISO-8859-1 src\pl\alex\App.java
+2. java -classpath .\bin pl.alex.App
+
 Program:
 
   - Liczy ile słów znajduje się w pliku txt;
